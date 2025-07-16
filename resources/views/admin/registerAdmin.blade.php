@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         /* Mengatur warna latar belakang utama */
         body {
-            background-color: #38E54D; /* Warna hijau cerah */
-            font-family: 'Poppins', sans-serif; /* Font yang lebih modern (opsional) */
+            background-color: #38E54D;
+            /* Warna hijau cerah */
+            font-family: 'Poppins', sans-serif;
+            /* Font yang lebih modern (opsional) */
         }
 
         /* Kontainer untuk menengahkan form */
@@ -42,7 +46,8 @@
 
         /* Styling untuk input field */
         .form-control {
-            border-radius: 50rem; /* Membuat input sangat bundar */
+            border-radius: 50rem;
+            /* Membuat input sangat bundar */
             padding: 0.75rem 1.25rem;
             border: 1px solid #ced4da;
         }
@@ -69,7 +74,8 @@
             background-color: #38E54D;
             border: none;
             color: white;
-            border-radius: 50rem; /* Membuat tombol sangat bundar */
+            border-radius: 50rem;
+            /* Membuat tombol sangat bundar */
             padding: 0.75rem 1.5rem;
             font-weight: 600;
             width: 100%;
@@ -77,40 +83,51 @@
         }
 
         .btn-login:hover {
-            background-color: #45a049; /* Warna hijau sedikit lebih gelap saat hover */
+            background-color: #45a049;
+            /* Warna hijau sedikit lebih gelap saat hover */
             color: white;
         }
     </style>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="login-container">
         <div class="card login-card">
             <div class="card-body">
-                <h2 class="card-title text-center">Login Admin</h2>
-                <form method="POST" action="{{ url('admin/login') }}">
+                <h2 class="card-title text-center">Buat Akun Admin</h2>
+                <form method="POST" action="{{ url('admin/daftarAdmin') }}">
                     @csrf
+
                     <div class="mb-3">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                        <input type="text" name="nama_admin" class="form-control" id=""
+                            placeholder="nama Admin" required>
                     </div>
                     <div class="mb-3">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        <input type="text" name="username" class="form-control" id="username" placeholder="username"
+                            required>
                     </div>
-                     @if ($errors->has('admin'))
-                        <div class="alert alert-danger">{{ $errors->first('admin') }}</div>
-                    @endif
-                    <div class="text-end mb-4">
-                        <a href="#" class="forgot-password-link">lupa password?</a>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="Password" required>
                     </div>
-                    <button type="submit" class="btn btn-login">Login</button>
+                    <div class="mb-3">
+                        <input type="password" name="password_confirmation" class="form-control"
+                            placeholder="Konfirmasi Password" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-login">Daftar</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
+
 </html>

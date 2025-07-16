@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -11,6 +12,7 @@ class AuthController extends Controller
     {
         return view('login');
     }
+
 
     public function login(Request $request)
     {
@@ -24,7 +26,7 @@ class AuthController extends Controller
 
         $user = User::where('username', $credentials['username'])->first();
 
-        if ($user && $credentials['password'] === $user->password) {
+        if ($user && Hash::check($request->password, $user->password)) {
             session(['id_user' => $user->id_user, 'nama_user' => $user->nama_user]);
             return redirect('/user/dashboard');
         }

@@ -1,73 +1,50 @@
-  @include ('admin.layouts.header')
-  
-  <!-- Konten Utama Daftar Menu -->
-    <main class="container mt-5">
-        <div class="table-responsive">
-            <table class="table table-custom table-striped align-middle">
+@include('admin.layouts.header')
+@include('admin.layouts.sidebar')
+
+<div class="d-flex flex-grow-1">
+    <main class="main-content container mt-4">
+        <h2 class="mb-4 text-center">Daftar Menu</h2>
+
+        <div class="table-responsive table-container">
+            <table class="table table-custom table-bordered table-striped align-middle">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Menu</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Opsi</th>
+                        <th scope="col" class="text-center">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($menus as $index => $menu)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Makanan 1</td>
-                        <td>10000</td>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $menu->nama_menu }}</td>
+                        <td>Rp {{ number_format($menu->harga_menu, 0, ',', '.') }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="ubah-menu.html" class="btn-action btn-edit">Ubah</a>
-                                <a href="#" class="btn-action btn-delete">Hapus</a>
+                                <a href="{{ url('admin/menu/edit/'.$menu->id_menu) }}" class="btn-action btn-edit btn btn-success btn-sm">
+                                    <i class="bi bi-pencil-fill"></i> Ubah
+                                </a>
+                                <a href="{{ url('admin/menu/delete/'.$menu->id_menu) }}" class="btn-action btn-delete btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus menu ini?')">
+                                    <i class="bi bi-trash-fill"></i> Hapus
+                                </a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Makanan 2</td>
-                        <td>12000</td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a href="#" class="btn-action btn-edit">Ubah</a>
-                                <a href="#" class="btn-action btn-delete">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Minuman 1</td>
-                        <td>3000</td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a href="#" class="btn-action btn-edit">Ubah</a>
-                                <a href="#" class="btn-action btn-delete">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Minuman 2</td>
-                        <td>4000</td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a href="#" class="btn-action btn-edit">Ubah</a>
-                                <a href="#" class="btn-action btn-delete">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
-        <!-- Tombol Tambah Menu -->
         <div class="d-flex justify-content-center mt-4">
-            <a href="tambah-menu.html" class="btn-add-menu">Tambah Menu</a>
+            <a href="{{ url('admin/menu/create') }}" class="btn-add-menu ">
+                <i class="bi bi-plus-circle-fill me-2"></i>Tambah Menu Baru
+            </a>
         </div>
     </main>
+</div>
 
-    <!-- CDN untuk Bootstrap JS (termasuk Popper.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

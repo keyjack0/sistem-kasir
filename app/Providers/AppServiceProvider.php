@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(base_path('routes/admin.php'));
+Route::prefix('admin')->middleware('web')->group(base_path('routes/admin.php'));
 
 class AppServiceProvider extends ServiceProvider
 {

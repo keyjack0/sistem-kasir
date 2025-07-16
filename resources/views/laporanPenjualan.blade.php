@@ -3,26 +3,22 @@
     <!-- Konten Utama Laporan Penjualan -->
     <main class="container mt-5">
         <!-- Filter Tanggal -->
+        <!-- Filter Tanggal -->
         <div>
             <h5 class="text-muted mb-3">{{ $labelTanggal }}</h5>
 
-            <form method="GET" action="{{ url('/user/laporan') }}" class="d-flex gap-2 mb-4">
-
-                <input type="date" name="tanggal" class="form-control w-auto" value="{{ request('tanggal') }}">
-                <select name="filter" class="form-select w-auto">
-                    <option value="harian" {{ request('filter') == 'harian' ? 'selected' : '' }}>Per Hari</option>
-                    <option value="mingguan" {{ request('filter') == 'mingguan' ? 'selected' : '' }}>Per Minggu</option>
-                    <option value="bulanan" {{ request('filter') == 'bulanan' ? 'selected' : '' }}>Per Bulan</option>
-                </select>
-                <button type="submit" class="btn btn-primary">Filter</button>
+            <form method="GET" action="{{ url('/user/laporan') }}" class="d-flex gap-2 mb-3">
+                <input type="date" name="tanggal" class="form-control w-auto"
+                    value="{{ request('tanggal', date('Y-m-d')) }}">
+                <button type="submit" class="btn btn-primary">Tampilkan</button>
             </form>
 
-            <form action="{{ route('laporan.export') }}" method="GET" target="_blank">
-                <input type="hidden" name="filter" value="{{ request('filter', 'harian') }}">
+            <form action="{{ route('laporan.export') }}" method="GET" target="_blank" class="mb-3">
                 <input type="hidden" name="tanggal" value="{{ request('tanggal', date('Y-m-d')) }}">
                 <button class="btn btn-success">Export Excel</button>
             </form>
         </div>
+
 
 
 

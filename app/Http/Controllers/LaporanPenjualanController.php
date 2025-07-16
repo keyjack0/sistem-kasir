@@ -12,37 +12,21 @@ class LaporanPenjualanController extends Controller
 {
     public function index(Request $request)
     {
-
-        $filter = $request->input('filter', 'harian');
         $tanggal = $request->input('tanggal', date('Y-m-d'));
         $tanggalCarbon = Carbon::parse($tanggal);
 
         $query = DB::table('laporan_penjualan')
             ->join('user', 'laporan_penjualan.id_user', '=', 'user.id_user')
-            ->select('laporan_penjualan.*', 'user.nama_user as nama_kasir');
+            ->select('laporan_penjualan.*', 'user.nama_user as nama_kasir')
+            ->whereDate('tanggal', $tanggalCarbon);
 
-        $labelTanggal = ''; // <-- untuk dikirim ke view
-
-        if ($filter === 'harian') {
-            $query->whereDate('tanggal', $tanggalCarbon);
-            $labelTanggal = 'Penjualan Tanggal ' . $tanggalCarbon->format('d F Y');
-        } elseif ($filter === 'mingguan') {
-            $start = $tanggalCarbon->copy()->startOfWeek();
-            $end = $tanggalCarbon->copy()->endOfWeek();
-            $query->whereBetween('tanggal', [$start, $end]);
-            $labelTanggal = 'Penjualan Minggu ' . $start->format('d M') . ' - ' . $end->format('d M Y');
-        } elseif ($filter === 'bulanan') {
-            $query->whereYear('tanggal', $tanggalCarbon->year)
-                ->whereMonth('tanggal', $tanggalCarbon->month);
-            $labelTanggal = 'Penjualan Bulan ' . $tanggalCarbon->format('F Y');
-        }
+        $labelTanggal = 'Penjualan Tanggal ' . $tanggalCarbon->format('d F Y');
 
         $laporan = $query->orderBy('tanggal', 'desc')->get();
-        // $laporan = DB::table('laporan_penjualan')->get();
 
         return view('laporanPenjualan', compact('laporan', 'labelTanggal'));
-        // return view('laporanPenjualan', compact('laporan'));
     }
+
 
 
     public function detail(Request $request)
@@ -65,10 +49,28 @@ class LaporanPenjualanController extends Controller
             ->select('menu.nama_menu', 'menu.harga_menu', 'pembayaran.jumlah', 'pembayaran.total')
             ->get();
 
-        return view('detailLaporanPenjualan', compact('laporan', 'pembayaran'));
+        return view('/detailLaporanPenjualan', compact('laporan', 'pembayaran'));
     }
 
     public function export(Request $request)
+    {
+        $tanggal = $request->input('tanggal', date('Y-m-d'));
+        $tanggalCarbon = Carbon::parse($tanggal);
+
+        $query = DB::table('laporan_penjualan')
+            ->join('user', 'laporan_penjualan.id_user', '=', 'user.id_user')
+            ->select('laporan_penjualan.*', 'user.nama_user as nama_kasir')
+            ->whereDate('tanggal', $tanggalCarbon);
+
+        $labelTanggal = 'Penjualan Tanggal ' . $tanggalCarbon->format('d F Y');
+
+        $laporan = $query->orderBy('tanggal', 'desc')->get();
+
+        return Excel::download(new LaporanPenjualanExport($laporan, $labelTanggal), 'laporan-penjualan-' . $tanggal . '.xlsx');
+    }
+
+    //admin
+    public function adminLaporan(Request $request)
     {
         $filter = $request->input('filter', 'harian');
         $tanggal = $request->input('tanggal', date('Y-m-d'));
@@ -82,20 +84,45 @@ class LaporanPenjualanController extends Controller
 
         if ($filter === 'harian') {
             $query->whereDate('tanggal', $tanggalCarbon);
-            $labelTanggal = 'Penjualan Tanggal ' . $tanggalCarbon->format('d F Y');
+            $labelTanggal = $tanggalCarbon->format('d F Y') . ' - Penjualan Harian';
         } elseif ($filter === 'mingguan') {
             $start = $tanggalCarbon->copy()->startOfWeek();
             $end = $tanggalCarbon->copy()->endOfWeek();
             $query->whereBetween('tanggal', [$start, $end]);
-            $labelTanggal = 'Penjualan Minggu ' . $start->format('d M') . ' - ' . $end->format('d M Y');
+            $labelTanggal = 'Penjualan Mingguan: ' . $start->format('d M') . ' - ' . $end->format('d M Y');
         } elseif ($filter === 'bulanan') {
             $query->whereYear('tanggal', $tanggalCarbon->year)
                 ->whereMonth('tanggal', $tanggalCarbon->month);
-            $labelTanggal = 'Penjualan Bulan ' . $tanggalCarbon->format('F Y');
+            $labelTanggal = 'Penjualan Bulan: ' . $tanggalCarbon->format('F Y');
         }
 
         $laporan = $query->orderBy('tanggal', 'desc')->get();
 
-        return Excel::download(new LaporanPenjualanExport($laporan, $labelTanggal), 'laporan-penjualan.xlsx');
+        return view('admin.laporanPenjualan', compact('laporan', 'labelTanggal'));
+    }
+
+    public function detailAdmin(Request $request)
+    {
+        $id = $request->query('id');
+        $filter = $request->input('filter');
+        $tanggal = $request->input('tanggal');
+
+        // Ambil data header laporan
+        $laporan = DB::table('laporan_penjualan')
+            ->where('id_laporan', $id)
+            ->first();
+
+        if (!$laporan) {
+            abort(404, 'Data laporan tidak ditemukan');
+        }
+
+        // Ambil data detail pembayaran
+        $pembayaran = DB::table('pembayaran')
+            ->join('menu', 'pembayaran.id_menu', '=', 'menu.id_menu')
+            ->where('id_laporan', $id)
+            ->select('menu.nama_menu', 'menu.harga_menu', 'pembayaran.jumlah', 'pembayaran.total')
+            ->get();
+
+        return view('/admin/detailLaporanPenjualan', compact('laporan', 'pembayaran', 'filter', 'tanggal'));
     }
 }

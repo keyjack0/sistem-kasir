@@ -23,9 +23,10 @@ class User extends Model
     protected $primaryKey = 'id_user';
     public $timestamps = false;
     protected $fillable = [
+        'nama_user',
         'username',
         'password',
-        'nama_user',
+        
     ];
 
     /**

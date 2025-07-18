@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', [AuthControllerAdmin::class, 'showLogin'])->name('admin.login');
 Route::post('/login', [AuthControllerAdmin::class, 'login']);
-Route::get('/dashboard', [AuthControllerAdmin::class, 'dashboard_admin']);
+Route::get('/dashboard', [AuthControllerAdmin::class, 'dashboard_admin'])->name('admin.dashboard');
 Route::post('/logout', [AuthControllerAdmin::class, 'logout'])->name('admin.logout');
 
 Route::get('/menu', fn() => view('admin.menu.daftarMenu'));

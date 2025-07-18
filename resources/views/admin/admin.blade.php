@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Mengatur warna latar belakang utama */
         body {
@@ -99,14 +100,30 @@
                     <div class="mb-3">
                         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                     </div>
-                     @if ($errors->has('admin'))
+                     {{-- @if ($errors->has('admin'))
                         <div class="alert alert-danger">{{ $errors->first('admin') }}</div>
-                    @endif
+                    @endif --}}
                     <div class="text-end mb-4">
                         <a href="#" class="forgot-password-link">lupa password?</a>
                     </div>
                     <button type="submit" class="btn btn-login">Login</button>
                 </form>
+                 @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            text: '{{ session('success') }}'
+                        });
+                    </script>
+                @endif
+                @if ($errors->has('admin'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            text: '{{ $errors->first('admin') }}'
+                        });
+                    </script>
+                @endif
             </div>
         </div>
     </div>

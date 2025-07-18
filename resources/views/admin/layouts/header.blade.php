@@ -5,15 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dasbor Admin</title>
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <style>
             :root {
@@ -94,7 +92,7 @@
                 /* Jika konten melebihi tinggi, tambahkan scroll */
             }
 
-            
+
 
             .btn-logout {
                 background-color: var(--red-logout);
@@ -140,26 +138,26 @@
             }
 
             .btn-add-menu {
-            background-color: var(--green-light);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 0.75rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(61, 213, 84, 0.4);
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
+                background-color: var(--green-light);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                padding: 0.75rem 2.5rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(61, 213, 84, 0.4);
+                transition: all 0.2s ease;
+                text-decoration: none;
+            }
 
-        .btn-add-menu:hover {
-            background-color: #38c14d;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(61, 213, 84, 0.5);
-        }
+            .btn-add-menu:hover {
+                background-color: #38c14d;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(61, 213, 84, 0.5);
+            }
 
-         /* .btn-main-action {
+            /* .btn-main-action {
             width: 20%;
             background-color: var(--green-light);
             color: white;
@@ -193,7 +191,22 @@
     </head>
 
     <body>
-
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    text: '{{ session('success') }}'
+                });
+            </script>
+        @endif
+        @if ($errors->has('admin'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            text: '{{ $errors->first('admin') }}'
+                        });
+                    </script>
+                @endif
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Nama Admin</a>
@@ -202,10 +215,10 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
-                         <form action="{{ route('admin.logout') }}" class="d-flex" method="POST">
-                    @csrf
-                    <button class="btn btn-logout" type="submit">Logout</button>
-                </form>
+                        <form action="{{ route('admin.logout') }}" class="d-flex" method="POST">
+                            @csrf
+                            <button class="btn btn-logout" type="submit">Logout</button>
+                        </form>
                     </ul>
                 </div>
             </div>

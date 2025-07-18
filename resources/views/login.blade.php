@@ -7,6 +7,7 @@
     <title>Login User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Mengatur warna latar belakang utama */
         body {
@@ -102,19 +103,37 @@
                 <form method="POST" action="{{ url('/user/login') }}">
                     @csrf
                     <div class="mb-3">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Username"
+                            required>
                     </div>
                     <div class="mb-3">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="Password" required>
                     </div>
-                    @if ($errors->has('login'))
-                        <div class="alert alert-danger">{{ $errors->first('login') }}</div>
-                    @endif
                     <div class="text-end mb-4">
                         <a href="#" class="forgot-password-link">lupa password?</a>
                     </div>
                     <button type="submit" class="btn btn-login">Login</button>
                 </form>
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            // title: 'Login berhasil!',
+                            text: '{{ session('success') }}'
+                        });
+                    </script>
+                @endif
+                @if ($errors->has('login'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            // title: 'Gagal Login!',
+                            text: '{{ $errors->first('login') }}'
+                        });
+                    </script>
+                @endif
+
             </div>
         </div>
     </div>

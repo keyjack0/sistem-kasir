@@ -41,7 +41,7 @@ class AuthControllerAdmin extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return view('admin.dashboard')->with('success', 'Admin berhasil ditambahkan');
+        return redirect()->route('admin.dashboard')->with('success', 'Admin berhasil ditambahkan');
     }
 
     public function daftar(Request $request)
@@ -58,7 +58,7 @@ class AuthControllerAdmin extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return view('admin.dashboard')->with('success', 'User berhasil ditambahkan');
+       return redirect()->route('admin.dashboard')->with('success', 'User berhasil ditambahkan');
     }
 
     public function login(Request $request)
@@ -75,10 +75,8 @@ class AuthControllerAdmin extends Controller
 
         if ($admin && Hash::check($request->password, $admin->password)) {
             session(['id_admin' => $admin->id_admin, 'nama_admin' => $admin->nama_admin]);
-            return redirect('/admin/dashboard');
+            return redirect('/admin/dashboard')->with('success', 'Login berhasil!');
         }
-
-        return back()->withErrors(['admin' => 'Username atau password salah']);
         return back()->withErrors(['admin' => 'Username atau password salah'])->withInput();
     }
 
@@ -106,12 +104,11 @@ class AuthControllerAdmin extends Controller
 
         return view('admin.dashboard', compact('totalPendapatan', 'jumlahMenu', 'menuDipesan'));
 
-        return view('admin.dashboard');
     }
 
     public function logout()
     {
         session()->flush();
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('success','Logout berhasil!');
     }
 }

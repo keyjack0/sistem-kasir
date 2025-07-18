@@ -7,6 +7,7 @@
     <title>Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Mengatur warna latar belakang utama */
         body {
@@ -121,6 +122,22 @@
 
                     <button type="submit" class="btn btn-login">Daftar</button>
                 </form>
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            text: '{{ session('success') }}'
+                        });
+                    </script>
+                @endif
+                @if ($errors->has('admin'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            text: '{{ $errors->first('admin') }}'
+                        });
+                    </script>
+                @endif
             </div>
         </div>
     </div>

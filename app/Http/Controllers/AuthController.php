@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
             session(['id_user' => $user->id_user, 'nama_user' => $user->nama_user]);
-            return redirect('/user/dashboard');
+            return redirect('/user/dashboard')->with('success', 'Login berhasil!');
         }
 
         return back()->withErrors(['login' => 'Username atau password salah']);
@@ -43,6 +43,6 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
-        return redirect('/user/login');
+        return redirect('/user/login')->with('success', 'Logout berhasil!');;
     }
 }

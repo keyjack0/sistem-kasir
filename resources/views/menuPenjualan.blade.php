@@ -234,11 +234,19 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Pembayaran berhasil!');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pembayaran berhasil!',
+                            text: '{{ session('success') }}'
+                        });
                         paymentModal.hide();
                         clearCart();
                     } else {
-                        alert('Gagal menyimpan transaksi.');
+                        Swal.fire({
+                            icon: 'eror',
+                            title: 'Gagal meyimpan transaksi',
+                            text: '{{ session('success') }}'
+                        });
                     }
                 })
                 .catch(err => {
@@ -255,6 +263,7 @@
         renderCart();
     });
 </script>
+
 </body>
 
 </html>

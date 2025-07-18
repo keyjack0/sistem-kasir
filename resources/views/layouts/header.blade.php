@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Penjualan - Dasbor Admin</title>
-
-    <!-- CDN untuk Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <!-- CDN untuk Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +29,7 @@
             --text-dark: #343a40;
             --border-color: #000;
 
-            
+
         }
 
         body {
@@ -44,17 +42,21 @@
             background-color: var(--green-primary);
             padding: 1rem 2rem;
         }
+
         .navbar-custom .navbar-brand,
         .navbar-custom .nav-link {
             color: white;
             font-weight: 600;
         }
+
         .navbar-custom .nav-link i {
             margin-right: 0.5rem;
         }
+
         .navbar-custom .nav-link.active {
             color: var(--text-dark);
         }
+
         .btn-logout {
             background-color: var(--red-action);
             color: white;
@@ -64,7 +66,7 @@
             padding: 0.5rem 1.5rem;
         }
 
-          .btn-logout:hover {
+        .btn-logout:hover {
             background-color: #e63939;
             color: white;
         }
@@ -77,13 +79,16 @@
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
         .menu-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(61, 213, 84, 0.2);
         }
+
         .menu-item .card-title {
             font-weight: 600;
         }
+
         .menu-item .card-text {
             color: var(--green-dark);
             font-weight: 500;
@@ -106,12 +111,17 @@
             padding: 0.5rem 1rem;
             margin-bottom: 0.75rem;
         }
-        .cart-item-details { font-weight: 500; }
+
+        .cart-item-details {
+            font-weight: 500;
+        }
+
         .quantity-controls {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
+
         .btn-qty {
             background-color: #e9ecef;
             border: none;
@@ -123,11 +133,13 @@
             align-items: center;
             justify-content: center;
         }
+
         .cart-summary {
             border-top: 1px solid #ddd;
             padding-top: 1rem;
             margin-top: auto;
         }
+
         .btn-pay {
             background-color: var(--green-dark);
             color: white;
@@ -141,27 +153,32 @@
         .modal-title {
             font-weight: 700;
         }
+
         .modal-table {
             border: 1px solid var(--border-color);
             border-radius: 20px;
             overflow: hidden;
         }
+
         .modal-table thead th {
             background-color: var(--green-primary);
             color: white;
             border: 1px solid var(--border-color);
             text-align: center;
         }
+
         .modal-table tbody td {
             text-align: center;
             vertical-align: middle;
             border: 1px solid var(--border-color);
         }
+
         .modal-summary {
             text-align: center;
             font-weight: 600;
             font-size: 1.1rem;
         }
+
         .btn-cancel {
             background-color: var(--red-action);
             color: white;
@@ -170,6 +187,7 @@
             border-radius: 20px;
             padding: 0.5rem 2rem;
         }
+
         .btn-confirm-pay {
             background-color: var(--green-primary);
             color: white;
@@ -179,14 +197,16 @@
             padding: 0.5rem 2rem;
         }
 
- /* untuk filter di laporan penjualan */
-  .filter-container {
+        /* untuk filter di laporan penjualan */
+        .filter-container {
             max-width: 400px;
         }
+
         .form-control-filter {
-             border-radius: 20px;
-             border: 1px solid #ccc;
+            border-radius: 20px;
+            border: 1px solid #ccc;
         }
+
         .btn-filter {
             background-color: var(--green-primary);
             color: white;
@@ -195,19 +215,20 @@
             border-radius: 20px;
             padding: 0.5rem 1.5rem;
         }
+
         .btn-filter:hover {
             background-color: #28a745;
             color: white;
         }
 
-/* untuk modifikasi table laporan penjualan*/
+        /* untuk modifikasi table laporan penjualan*/
         .table-custom {
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             overflow: hidden;
         }
-        
+
         .table-custom thead th {
             background-color: var(--green-primary);
             color: white;
@@ -215,8 +236,9 @@
             border: 1px solid var(--border-color);
             text-align: center;
         }
-        
-        .table-custom tbody td, .table-custom tbody th {
+
+        .table-custom tbody td,
+        .table-custom tbody th {
             vertical-align: middle;
             text-align: center;
             border: 1px solid var(--border-color);
@@ -234,13 +256,14 @@
             transition: background-color 0.2s ease;
             width: 80%;
         }
+
         .btn-report:hover {
             background-color: #28a745;
             color: white;
         }
 
         /* untuk detail laporan penjualan0 */
-              /* Konten Laporan */
+        /* Konten Laporan */
         .report-container {
             max-width: 800px;
             margin: auto;
@@ -290,25 +313,37 @@
             text-decoration: underline;
             color: #333;
         }
+
         .back-link:hover {
             color: var(--green-primary);
         }
-
-
     </style>
 </head>
+
 <body>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
+
     <!-- Bagian Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Nama Pengguna</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mx-auto">
-                    <a class="nav-link {{ request()->is('/user/dashboard') ? 'active text-blod fw-bold' : '' }}" href="{{ url('/user/dashboard') }}"><i class="bi bi-cart-fill"></i>Menu Penjualan</a>
-                    <a class="nav-link {{ request()->is('/user/laporan') ? 'active text-bold fw-bold' : '' }}" href="{{ url('/user/laporan') }}"><i class="bi bi-bar-chart-line-fill"></i>Laporan Penjualan</a>
+                    <a class="nav-link {{ request()->is('/user/dashboard') ? 'active text-blod fw-bold' : '' }}"
+                        href="{{ url('/user/dashboard') }}"><i class="bi bi-cart-fill"></i>Menu Penjualan</a>
+                    <a class="nav-link {{ request()->is('/user/laporan') ? 'active text-bold fw-bold' : '' }}"
+                        href="{{ url('/user/laporan') }}"><i class="bi bi-bar-chart-line-fill"></i>Laporan Penjualan</a>
                 </div>
                 <form action="{{ route('user.logout') }}" class="d-flex" method="POST">
                     @csrf

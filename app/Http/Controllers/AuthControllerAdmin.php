@@ -27,6 +27,16 @@ class AuthControllerAdmin extends Controller
         return view(('admin.registerAdmin'));
     }
 
+     public function tampilAdmin()
+    {
+        return view(('admin.tampilAdmin'));
+    }
+
+     public function tampilUser()
+    {
+        return view(('admin.tampilUser'));
+    }
+
     public function daftarAdmin(Request $request)
     {
         $request->validate([

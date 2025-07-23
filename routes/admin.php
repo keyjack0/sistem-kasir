@@ -24,6 +24,10 @@ Route::post('daftar', [AuthControllerAdmin::class, 'daftar']);
 Route::get('registerAdmin', [AuthControllerAdmin::class, 'registerAdmin']);
 Route::post('daftarAdmin', [AuthControllerAdmin::class, 'daftarAdmin']);
 
+//tampil admin adn user
+Route::get('/tampilAdmin', [AuthControllerAdmin::class, 'tampilAdmin']);
+Route::get('/tampilUser', [AuthControllerAdmin::class, 'tampilUser']);
+
 
 //menu
 Route::get('/menu', [MenuController::class, 'showMenuList']);

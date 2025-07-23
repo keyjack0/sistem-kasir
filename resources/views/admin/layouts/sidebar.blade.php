@@ -19,6 +19,12 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('admin/registerAdmin') ? 'active text-bold fw-bold' : '' }}" href="{{ url('admin/registerAdmin') }}"><i class="bi bi-person-fill"></i>Registrasi Admin</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/tampilAdmin') ? 'active text-bold fw-bold' : '' }}" href="{{ url('admin/tampilAdmin') }}"><i class="bi bi-person-fill"></i>Registrasi Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('admin/tampilUser') ? 'active text-bold fw-bold' : '' }}" href="{{ url('admin/tampilUser') }}"><i class="bi bi-person-fill"></i>Registrasi Admin</a>
+                </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#"><i class="bi bi-gear-fill"></i>Pengaturan</a>
                 </li> --}}
